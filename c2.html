@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countdown Timer</title>
+
+  <!-- Load Comfortaa font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Comfortaa', sans-serif;
+      background: #000000;
+      background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+      color: #e6edf3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #4db8ff;
+      margin-bottom: 40px;
+      text-shadow: 0 0 10px rgba(77, 184, 255, 0.6);
+      letter-spacing: 1px;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .time-box {
+      background: rgba(10, 10, 10, 0.9);
+      padding: 20px 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(77, 184, 255, 0.15);
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      backdrop-filter: blur(4px);
+      min-width: 90px;
+    }
+
+    .time-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 20px rgba(77, 184, 255, 0.35);
+    }
+
+    .time {
+      font-size: 2.8rem;
+      font-weight: bold;
+      color: #4db8ff;
+      text-shadow: 0 0 15px rgba(77, 184, 255, 0.4);
+    }
+
+    .label {
+      font-size: 0.85rem;
+      color: #a1a1a1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>The exam is on the way</h1>
+  <div class="countdown" id="countdown">
+    <div class="time-box">
+      <div class="time" id="days">0</div>
+      <div class="label">Days</div>
+    </div>
+    <div class="time-box">
+      <div class="time" id="hours">0</div>
+      <div class="label">Hours</div>
+    </div>
+    <div class="time-box">
+      <div class="time" id="minutes">0</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="time-box">
+      <div class="time" id="seconds">0</div>
+      <div class="label">Seconds</div>
+    </div>
+  </div>
+
+  <script>
+    // Target date: August 16, 2025 at midnight
+    const targetDate = new Date(2025, 7, 16, 0, 0, 0).getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "<h2>TIME'S UP!</h2>";
+        clearInterval(timerInterval);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    const timerInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
